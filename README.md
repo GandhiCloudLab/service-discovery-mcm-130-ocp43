@@ -1,4 +1,7 @@
-# MCM Service Discovery in RHOCP 4.3 Clusters
+# Implementing MCM Service Discovery in RHOCP 4.3 Clusters
+
+(Steps to implement the IBM Cloud Pak for Multicloud Management (MCM) Service Discovery in Redhat Openshift Container Plantform 4.3 Clusters).
+
 
 IBM Cloud Pak for Multicloud Management provides service discovery feature among connected managed clusters.
 
@@ -17,11 +20,11 @@ RedHat Openshift Container Platform 4.3
 
 ## 1. Cluster and App Details
 
-The MCM Hub cluster is connected with 2 managed clusters `d` and `e`. Both the managed clusters are installed with Redhat Openshift Container Platform 4.3.
+Here the MCM Hub cluster is connected with 2 managed clusters `d` and `e`. Both the managed clusters are installed with Redhat Openshift Container Platform 4.3.
 
 <img src="images/01-clusters.png" >
 
-The contains 2 services called `frontend` and `catalog`. The `frontend` service deployed in Cluster `d` and it is going to call `catalog` service in that is deployed in Cluster `e`.
+The App contains 2 services called `frontend` and `catalog`. The `frontend` service deployed in Cluster `d` and it is going to call `catalog` service in that is deployed in Cluster `e`.
 
 <img src="images/02-cluster-app.png" >
 
@@ -105,7 +108,7 @@ Run the below command to see service.
 oc describe svc mcm-svc-registry-dns -n multicluster-endpoint 
 ```
 
-The output could be like this. Here the **endpoints for the mentiond service would be empty**.  This is a problem in RHOCP 4.3 version of MCM. This should be solved and next step does that.
+The output could be like this. Here the **endpoints for the mentioned service would be empty**.  This is a problem in RHOCP 4.3 version of MCM. This should be solved and next step does that.
 
 <img src="images/14-dns-without-endpoints.png" >
 
@@ -231,7 +234,7 @@ It is same in all the cluters.
 
 <img src="images/75-app-home.png" >
 
-3. Click on the catalog link, it will show the output.
+3. Click on the `View Catalog Name link`, it will show the output.
 
 <img src="images/76-app-result.png" >
 

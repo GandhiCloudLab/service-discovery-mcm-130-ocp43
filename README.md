@@ -1,6 +1,6 @@
 # MCM Service Discovery in RHOCP 4.3 Clusters
 
-IBM Cloud Pak for Multicloud Manager provides service discovery feature among connected managed clusters.
+IBM Cloud Pak for Multicloud Management provides service discovery feature among connected managed clusters.
 
 In this documentation we will see the following
 - Configuring DNS in Managed Cluster for Service Discovery
@@ -9,7 +9,7 @@ In this documentation we will see the following
 
 Versions used : 
 
-IBM Cloud Pak for Multicloud Manager 1.3.0
+IBM Cloud Pak for Multicloud Management 1.3.0
 
 RedHat Openshift Container Platform 4.3
 

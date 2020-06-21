@@ -1,24 +1,25 @@
 # MCM Service Discovery in OCP 4.3 Clusters
 
-IBM Multicloud Manager allows to discover services among the connected managed clusters. 
+IBM Multicloud Manager provides feature to discover services among connected managed clusters. 
 
 In this documentation we will see the following
-- Configuring DNS in Managed Cluster (Redhat Openshift Container Plantform 4.3)
-- Installation an sample application
-- Service Discovery related changes to be done in kubernetes objects 
-
+- Configuring DNS in Managed Cluster for Service Discovery
+- Installing a sample application 
+- Kubernetes objects changes for Service Discovery
 
 Versions used : 
-    IBM Multicloud Manager 1.3.0
-    Redhat Openshift Container Plantform 4.3
+
+IBM Multicloud Manager 1.3.0
+
+Redhat Openshift Container Plantform 4.3
 
 ## Objective
 
-There is a MCM Hub cluster and it is connected with 2 other managed clusters D and E are. Both the managed clusters are installed with Redhat Openshift Container Plantform 4.3.
+The MCM Hub cluster is connected with 2 managed clusters `d` and `e`. Both the managed clusters are installed with Redhat Openshift Container Plantform 4.3.
 
 <img src="images/01-clusters.png" >
 
-The frontend service deployed in Cluster d is going to call catalog service in Cluster e.
+The `frontend` service deployed in Cluster `d` is going to call `catalog` service in Cluster `e`.
 
 <img src="images/02-cluster-app.png" >
 
@@ -27,8 +28,7 @@ The frontend service deployed in Cluster d is going to call catalog service in C
 
 Need to configure DNS in the Managed Cluster. 
 
-The Knowledge Center page has the detailed explanation about how to do it. But for OCP it is little different. You can cotinue reading this document.
-https://www.ibm.com/support/knowledgecenter/SSFC4F_1.3.0/mcm/services/mcm_serv_prep.html
+The Knowledge Center page has the detailed explanation about how to do it. https://www.ibm.com/support/knowledgecenter/SSFC4F_1.3.0/mcm/services/mcm_serv_prep.html. But for OCP it is little different and it is explained here.
 
 
 Do the followings steps in each of your managed cluster.

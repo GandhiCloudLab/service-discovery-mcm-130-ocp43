@@ -272,7 +272,7 @@ This configmap is deployed in both the clusters `d`.  This properties form this 
 
 Line No. 23: URL mentioned here is the URL to discover the `Catalog` service.
 
-The format is <<ServiceName>> . <<Namespace>> . mcm.svc
+The format is ServiceName.Namespace.mcm.svc
 
 #### 5. Channel
 
@@ -282,7 +282,7 @@ The format is <<ServiceName>> . <<Namespace>> . mcm.svc
 
 <img src="images/91-placement.png" >
 
-Placement rules defined for  clusters `d` and  `e`.  
+Placement rules defining the  clusters `d` and  `e`.  
 
 #### 7. Subscription
 

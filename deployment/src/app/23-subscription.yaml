@@ -1,0 +1,75 @@
+---
+apiVersion: app.ibm.com/v1alpha1
+kind: Subscription
+metadata:
+  name: subscription-service-discovery3-common
+  namespace: service-discovery3-chn-ns
+  labels:
+    app: service-discovery3-application
+spec:
+  channel: service-discovery3-chn-ns/service-discovery3-channel
+  packageFilter:
+    labelSelector:
+      matchLabels:
+        app: service-discovery3-application
+        subapp: common
+  placement:
+    placementRef:
+      name: service-discovery3-de
+      kind: PlacementRule
+      group: app.ibm.com
+  overrides:
+  - clusterName: "/"
+    clusterOverrides:
+    - path: "metadata.namespace"
+      value: service-discovery3-app-ns      
+---
+apiVersion: app.ibm.com/v1alpha1
+kind: Subscription
+metadata:
+  name: subscription-service-discovery3-catalog
+  namespace: service-discovery3-chn-ns
+  labels:
+    app: service-discovery3-application
+spec:
+  channel: service-discovery3-chn-ns/service-discovery3-channel
+  packageFilter:
+    labelSelector:
+      matchLabels:
+        app: service-discovery3-application
+        subapp: catalog
+  placement:
+    placementRef:
+      name: service-discovery3-e
+      kind: PlacementRule
+      group: app.ibm.com
+  overrides:
+  - clusterName: "/"
+    clusterOverrides:
+    - path: "metadata.namespace"
+      value: service-discovery3-app-ns      
+---
+apiVersion: app.ibm.com/v1alpha1
+kind: Subscription
+metadata:
+  name: subscription-service-discovery3-frontweb
+  namespace: service-discovery3-chn-ns
+  labels:
+    app: service-discovery3-application
+spec:
+  channel: service-discovery3-chn-ns/service-discovery3-channel
+  packageFilter:
+    labelSelector:
+      matchLabels:
+        app: service-discovery3-application
+        subapp: frontweb        
+  placement:
+    placementRef:
+      name: service-discovery3-d
+      kind: PlacementRule
+      group: app.ibm.com
+  overrides:
+  - clusterName: "/"
+    clusterOverrides:
+    - path: "metadata.namespace"
+      value: service-discovery3-app-ns

@@ -1,0 +1,19 @@
+---
+# Source: service-discovery3-subscription/templates/11-application.yaml
+apiVersion: app.k8s.io/v1beta1
+kind: Application
+metadata:
+  name: service-discovery3-application
+  namespace: service-discovery3-chn-ns
+  labels:
+    app: service-discovery3-application
+spec:
+  selector:
+    matchExpressions:
+    - key: app
+      operator: In
+      values:
+      - service-discovery3-application
+  componentKinds:
+  - group: app.ibm.com
+    kind: Subscription

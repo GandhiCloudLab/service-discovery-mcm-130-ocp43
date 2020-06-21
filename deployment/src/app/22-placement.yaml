@@ -1,0 +1,49 @@
+---
+apiVersion: app.ibm.com/v1alpha1
+kind: PlacementRule
+metadata:
+  name: service-discovery3-d
+  namespace: service-discovery3-chn-ns
+  labels:
+    app: service-discovery3-application
+spec:
+  clusterReplicas: 1
+  clusterLabels:
+    matchExpressions:
+      - key: name
+        operator: In
+        values:
+          - ocp43-mcm-managed-d
+---
+apiVersion: app.ibm.com/v1alpha1
+kind: PlacementRule
+metadata:
+  name: service-discovery3-e
+  namespace: service-discovery3-chn-ns
+  labels:
+    app: service-discovery3-application
+spec:
+  clusterReplicas: 1
+  clusterLabels:
+    matchExpressions:
+      - key: name
+        operator: In
+        values:
+          - ocp43-mcm-managed-e
+---
+apiVersion: app.ibm.com/v1alpha1
+kind: PlacementRule
+metadata:
+  name: service-discovery3-de
+  namespace: service-discovery3-chn-ns
+  labels:
+    app: service-discovery3-application
+spec:
+  clusterReplicas: 2
+  clusterLabels:
+    matchExpressions:
+      - key: name
+        operator: In
+        values:
+        - ocp43-mcm-managed-d
+        - ocp43-mcm-managed-e

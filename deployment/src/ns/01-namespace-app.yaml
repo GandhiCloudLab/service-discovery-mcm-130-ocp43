@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: service-discovery3-chn-ns
+  labels:
+    app: service-discovery3-application  
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: service-discovery3-app-ns
+  labels:
+    app: service-discovery3-application  
+---

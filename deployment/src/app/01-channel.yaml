@@ -1,0 +1,12 @@
+apiVersion: app.ibm.com/v1alpha1
+kind: Channel
+metadata:
+  name: service-discovery3-channel
+  namespace: service-discovery3-chn-ns
+  labels:
+    app: service-discovery3-application
+spec:
+  type: Namespace
+  pathname: service-discovery3-chn-ns
+  sourceNamespaces:
+    - service-discovery3-app-ns

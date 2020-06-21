@@ -1,0 +1,114 @@
+apiVersion: app.ibm.com/v1alpha1
+kind: Deployable
+metadata:
+  name: service-discovery3-frontweb-deployable
+  namespace: service-discovery3-chn-ns
+  annotations:
+    app.ibm.com/is-local-deployable: "false"
+  labels:
+    app: service-discovery3-application
+    subapp: frontweb
+spec:
+  template:
+    kind: Deployment
+    apiVersion: apps/v1
+    metadata:
+      name: service-discovery3-frontweb
+      namespace: service-discovery3-app-ns
+      labels:
+        app: service-discovery3-application
+        subapp: frontweb
+    spec:
+      selector:
+        matchLabels:
+          app: service-discovery3-application
+          subapp: frontweb
+      replicas: 1
+      template:
+        metadata:
+          labels:
+            app: service-discovery3-application
+            subapp: frontweb
+        spec:
+          containers:
+          - name: frontweb
+            image: "gandhicloudlab/servicediscovery-frontweb:latest"
+            imagePullPolicy: Always
+            env:
+              - name: service.url.catalog
+                valueFrom:
+                  configMapKeyRef:
+                    name: service-discovery3-config-map
+                    key: service.url.catalog
+  dependencies:
+  - name: service-discovery3-catalog-service
+    namespace: service-discovery3-app-ns
+    kind: Service
+  placement:
+    clusterLabels:
+      matchExpressions:
+        - key: name
+          operator: In
+          values:
+            - ocp43-mcm-managed-d
+            ---
+apiVersion: app.ibm.com/v1alpha1
+kind: Deployable
+metadata:
+  name: service-discovery3-frontweb-service-deployable
+  namespace: service-discovery3-chn-ns
+  annotations:
+    app.ibm.com/is-local-deployable: "false"
+  labels:
+    app: service-discovery3-application
+    subapp: frontweb
+spec:
+  template:
+    kind: Service
+    apiVersion: v1
+    metadata:
+      name: service-discovery3-frontweb-service
+      namespace: service-discovery3-app-ns
+      annotations:
+        mcm.ibm.com/service-discovery: "{}"
+      labels:
+        app: service-discovery3-application
+        subapp: frontweb
+    spec:
+      type: LoadBalancer
+      ports:
+      - port: 9090
+        targetPort: 9020
+        name: my-http
+      selector:
+        app: service-discovery3-application
+        subapp: frontweb
+---
+apiVersion: app.ibm.com/v1alpha1
+kind: Deployable
+metadata:
+  name: service-discovery3-deployable-route-frontweb
+  namespace: service-discovery3-chn-ns
+  annotations:
+    app.ibm.com/is-local-deployable: "false"  
+  labels:
+    app: service-discovery3-application
+    subapp: frontweb
+spec:
+  template:
+    kind: Route
+    apiVersion: route.openshift.io/v1
+    metadata:
+      name: service-discovery3-frontweb
+      namespace: service-discovery3-app-ns
+      labels:
+        app: service-discovery3-application
+        subapp: frontweb
+    spec:
+      path: /
+      to:
+        kind: Service
+        name: service-discovery3-frontweb-service
+        weight: 100
+      port:
+        targetPort: my-http

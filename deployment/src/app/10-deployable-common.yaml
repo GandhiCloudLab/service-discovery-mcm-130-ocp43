@@ -1,0 +1,23 @@
+apiVersion: app.ibm.com/v1alpha1
+kind: Deployable
+metadata:
+  name: service-discovery3-deployable-config-map
+  namespace: service-discovery3-chn-ns
+  annotations:
+    app.ibm.com/is-local-deployable: "false" 
+  labels:
+    app: service-discovery3-application
+    subapp: common
+spec:
+  template:
+    kind: ConfigMap
+    apiVersion: v1
+    metadata:
+      name: service-discovery3-config-map
+      namespace: service-discovery3-app-ns
+      labels:
+        app: service-discovery3-application
+        subapp: common
+    type: Opaque
+    data:
+      service.url.catalog: http://service-discovery3-catalog-service.service-discovery3-app-ns.mcm.svc:9090

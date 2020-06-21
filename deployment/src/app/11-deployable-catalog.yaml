@@ -1,0 +1,71 @@
+apiVersion: app.ibm.com/v1alpha1
+kind: Deployable
+metadata:
+  name: service-discovery3-catalog-deployment-deployable
+  namespace: service-discovery3-chn-ns
+  annotations:
+    app.ibm.com/is-local-deployable: "false"
+  labels:
+    app: service-discovery3-application
+    subapp: catalog
+spec:
+  template:
+    kind: Deployment
+    apiVersion: apps/v1
+    metadata:
+      name: service-discovery3-catalog-deployment
+      namespace: service-discovery3-app-ns
+      labels:
+        app: service-discovery3-application
+        subapp: catalog
+    spec:
+      selector:
+        matchLabels:
+          app: service-discovery3-application
+          subapp: catalog
+      replicas: 1
+      template:
+        metadata:
+          labels:
+            app: service-discovery3-application
+            subapp: catalog
+        spec:
+          containers:
+          - name: catalog
+            image: "gandhicloudlab/servicediscovery-catalog:latest"
+            imagePullPolicy: IfNotPresent
+---
+apiVersion: app.ibm.com/v1alpha1
+kind: Deployable
+metadata:
+  name: service-discovery3-catalog-service-deployable
+  namespace: service-discovery3-chn-ns
+  annotations:
+    app.ibm.com/is-local-deployable: "false"
+  labels:
+    app: service-discovery3-application
+    subapp: catalog
+spec:
+  template:
+    kind: Service
+    apiVersion: v1
+    metadata:
+      name: service-discovery3-catalog-service
+      namespace: service-discovery3-app-ns
+      annotations:
+        mcm.ibm.com/service-discovery: "{}"
+      labels:
+        app: service-discovery3-application
+        subapp: catalog
+    spec:
+      type: LoadBalancer
+      ports:
+      - port: 9090
+        targetPort: 9021
+        name: http
+      selector:
+        app: service-discovery3-application
+        subapp: catalog
+
+
+    

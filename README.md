@@ -139,13 +139,17 @@ You caan repeat the same to another managed cluster if any.
 
 --------------
 
-## Installing application in Hub
+## Installing Sample App
 
 ### Installing application in Hub
 
 #### 1. Login into mcm hub
 
 Login to mcm hub in the command line window.
+
+```
+oc login ................
+```
 
 #### 2. Goto the install folder
 
@@ -167,11 +171,11 @@ Run the below command.
 sh 02-install-app.sh
 ```
 
---------------
-
-## View the installed application
+### View the installed application
 
 #### 1. MCM Application topology view at MCM Hub
+
+It contains the cluster `d` and `e`.  As planned cluster `d` contains `frontweb` service and cluster `e` contains `catalog` service.
 
 <img src="images/61-App-Topology.png" >
 
@@ -182,7 +186,7 @@ sh 02-install-app.sh
 #### 3. frontweb service in cluster d
 
 <img src="images/63-ClusterD-services.png" >
-<img src="images/64-ClusterD-services.png" >
+<img src="images/64-ClusterD-services2.png" >
 
 #### 4. frontweb routes in cluster d
 
@@ -190,15 +194,16 @@ sh 02-install-app.sh
 
 #### 5. endpoint-svcreg-coredns in cluster d
 
+The DNS we confitured in the previous steps.
+
 <img src="images/66-coredns1.png" >
 <img src="images/67-coredns2.png" >
 
-The same entry would exists in cluster e as well.
+The same entry would exists in cluster `e` as well.
 
 #### 6. catalog pod in cluster e
 
 <img src="images/68-ClusterE-pod.png" >
-
 
 #### 7. catalog service in cluster e
 
@@ -211,11 +216,10 @@ It is same in all the cluters.
 <img src="images/70-clusterE-coredns1.png" >
 <img src="images71-clusterE-coredns2.png" >
 
---------------
 
-## Run the installed application
+### Run the installed application
 
-1. Goto the Routes Pages in cluster d. 
+1. Goto the Routes Page in cluster `d`. 
 
 2. Click on the route. It should open a application home page.
 
@@ -225,23 +229,50 @@ It is same in all the cluters.
 
 <img src="images/76-app-result.png" >
 
+
 ## Detailed view of Kubernetes Resources
 
 #### 1. Catalog Deployment
 
 <img src="images/80-catalog-deployment.png" >
 
+This is a typical `Deployable` MCM resource for `Catalog` service. It contains `Deployment` Kubernetes resource inside.
+
+Line No. 35: Container image
+
 #### 2. Catalog Service
 
 <img src="images/81-catalog-service.png" >
+
+This is a typical `Deployable` MCM resource for `Catalog` service. It contains `Service` Kubernetes resource inside.
+
+Line No. 56: The annodation `mcm.ibm.com/service-discovery: "{}"` to be added
+
+Line No. 61: The Type should be `LoadBalancer`
 
 #### 3. Frontweb Deployment
 
 <img src="images/82-frontweb-deployment.png" >
 
+This is a typical `Deployable` MCM resource for `FrontWeb` service. It contains `Deployment` Kubernetes resource inside. 
+
+Line No. 35: Container image
+
+Line No. 38, 41: Service Discovery url to call `Catalog` service is passed from the configmap.
+
+Line No. 43: Dependencies is declared here. Here `FrontWeb` is depend on `Catalog` service.
+
+Line No. 47: Placement is declared here. It means that the `FrontWeb` to be deployed in cluster `d` 
+
 #### 4. Configmap
 
 <img src="images/84-configmap.png" >
+
+This configmap is deployed in both the clusters `d`.  This properties form this configmap is used in `FrontWeb` service.
+
+Line No. 23: URL mentioned here is the URL to discover the `Catalog` service.
+
+The format is <<ServiceName>> . <<Namespace>> . mcm.svc
 
 #### 5. Channel
 
@@ -251,6 +282,14 @@ It is same in all the cluters.
 
 <img src="images/91-placement.png" >
 
+Placement rules defined for  clusters `d` and  `e`.  
+
 #### 7. Subscription
 
 <img src="images/92-subscription.png" >
+
+Subscriptions connecting the kubernetes resources `Deployment`, `Services` and `Routes`  defined for  clusters `d` and  `e`.  
+
+#### 8. Namespace
+
+<img src="images/93-namespace.png" >

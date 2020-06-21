@@ -13,6 +13,8 @@ IBM Multicloud Manager 1.3.0
 
 Redhat Openshift Container Plantform 4.3
 
+--------------
+
 ## Objective
 
 The MCM Hub cluster is connected with 2 managed clusters `d` and `e`. Both the managed clusters are installed with Redhat Openshift Container Plantform 4.3.
@@ -23,6 +25,7 @@ The `frontend` service deployed in Cluster `d` is going to call `catalog` servic
 
 <img src="images/02-cluster-app.png" >
 
+--------------
 
 ## Configure DNS in Managed Cluster
 
@@ -33,13 +36,16 @@ The Knowledge Center page has the detailed explanation about how to do it. https
 
 Do the followings steps in each of your managed cluster.
 
-### 1. Get the service registry IP Address of the managed cluster
+### 1. Get the Service Registry IP Address of the managed cluster
 
 Run the below command. And you will get the service registry IP printed.
 
 ```
 kubectl get -n multicluster-endpoint service mcm-svc-registry-dns -o jsonpath='{.spec.clusterIP}'
 ```
+
+Lets assume that output is `111.222.333.444`.
+
 
 ### 2. Update dns.operator/default
 
@@ -88,34 +94,50 @@ kubectl get -n multicluster-endpoint configmap endpoint-svcreg-coredns -o yaml
 
 The output could be like this.
 
-<img src="images/dns.png" >
+<img src="images/13-configmap-endpoint-svcreg-coredns.png" >
 
 
 #### 5. View the service mcm-svc-registry-dns
 
-The endpoints for the mentiond serviced would be empty. Run the below command to see that.
+Run the below command to see that. 
 
 ```
 oc describe svc mcm-svc-registry-dns -n multicluster-endpoint 
 ```
 
-The output could be like this.
+The output could be like this. Here the endpoints for the mentiond service would be empty. 
 
-<img src="images/dns.png" >
+<img src="images/14-dns-without-endpoints.png" >
 
 
 #### 6. Create workaround service
 
-Create a workaround service that will create with appropriate endpoint.
+1. Run the below command to create a workaround service that will create with appropriate endpoints.
 
 ```
 oc apply -f /files/svc.yaml
 ```
 
+The svc.yaml file looks like this.
+
+<img src="images/15-workaround-service.png" >
+
+
+2. Run the below command to see the service with appropriate endpoints.
+
+```
+oc describe -n multicluster-endpoint service mcm-svc-registry-test
+```
+The output could be like this. 
+
+<img src="images/16-dns-with-endpoints.png" >
+
+
 Now this managed cluster is ready for the service discovery. 
 
 You caan repeat the same to another managed cluster if any.
 
+--------------
 
 ## Installing application in Hub
 
@@ -144,6 +166,8 @@ Run the below command.
 ```
 sh 02-install-app.sh
 ```
+
+--------------
 
 ## View the installed application
 
@@ -187,6 +211,7 @@ It is same in all the cluters.
 <img src="images/70-clusterE-coredns1.png" >
 <img src="images71-clusterE-coredns2.png" >
 
+--------------
 
 ## Run the installed application
 

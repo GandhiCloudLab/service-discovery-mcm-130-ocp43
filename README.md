@@ -1,6 +1,6 @@
-# MCM Service Discovery in OCP 4.3 Clusters
+# MCM Service Discovery in RHOCP 4.3 Clusters
 
-IBM Multicloud Manager provides service discovery feature among connected managed clusters. 
+IBM Cloud Pak for Multicloud Manager provides service discovery feature among connected managed clusters.
 
 In this documentation we will see the following
 - Configuring DNS in Managed Cluster for Service Discovery
@@ -9,15 +9,15 @@ In this documentation we will see the following
 
 Versions used : 
 
-IBM Multicloud Manager 1.3.0
+IBM Cloud Pak for Multicloud Manager 1.3.0
 
-Redhat Openshift Container Plantform 4.3
+RedHat Openshift Container Platform 4.3
 
 --------------
 
 ## 1. Cluster and App Details
 
-The MCM Hub cluster is connected with 2 managed clusters `d` and `e`. Both the managed clusters are installed with Redhat Openshift Container Plantform 4.3.
+The MCM Hub cluster is connected with 2 managed clusters `d` and `e`. Both the managed clusters are installed with Redhat Openshift Container Platform 4.3.
 
 <img src="images/01-clusters.png" >
 
@@ -31,7 +31,7 @@ The contains 2 services called `frontend` and `catalog`. The `frontend` service 
 
 Need to configure DNS in the Managed Cluster. 
 
-The Knowledge Center page has the detailed explanation about how to do it. https://www.ibm.com/support/knowledgecenter/SSFC4F_1.3.0/mcm/services/mcm_serv_prep.html. But for OCP it is little different and it is explained here.
+The Knowledge Center page has the detailed explanation about how to do it. https://www.ibm.com/support/knowledgecenter/SSFC4F_1.3.0/mcm/services/mcm_serv_prep.html. But for RHOCP it is little different and it is explained here.
 
 
 Do the followings steps in each of your managed cluster.
@@ -105,7 +105,7 @@ Run the below command to see service.
 oc describe svc mcm-svc-registry-dns -n multicluster-endpoint 
 ```
 
-The output could be like this. Here the **endpoints for the mentiond service would be empty**.  This is a probelm in OCP 4.3 version of MCM. This should be solved and next step does that.
+The output could be like this. Here the **endpoints for the mentiond service would be empty**.  This is a problem in RHOCP 4.3 version of MCM. This should be solved and next step does that.
 
 <img src="images/14-dns-without-endpoints.png" >
 

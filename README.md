@@ -239,6 +239,8 @@ It is same in all the cluters.
 
 ## 4. Detailed view of Kubernetes Resources
 
+The files mentioned here are available under the `deployment/src` folder in this repo.
+
 #### 1. Catalog Deployment
 
 This is a typical `Deployable` MCM resource for `Catalog` service. It contains `Deployment` Kubernetes resource inside.
